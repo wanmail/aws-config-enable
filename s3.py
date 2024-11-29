@@ -55,7 +55,7 @@ def get_s3_policy(bucket_name, accounts):
                     "Service": "config.amazonaws.com"
                 },
                 "Action": "s3:PutObject",
-                "Resource": f"arn:aws:s3:::{bucket_name}/",
+                "Resource": f"arn:aws:s3:::{bucket_name}/*",
 
                 #   "Resource": "arn:aws:s3:::{s3_bucket_name}/[optional] prefix/AWSLogs/{sourceAccountID}/Config/*",
                 "Condition": {
