@@ -7,7 +7,7 @@ DELIVERY_FREQUENCY = "Twelve_Hours"
 def get_recoder_config(account_id, region):
     """
     Generates the configuration for AWS Config recorder based on the specified region.
-    
+
     Default excluding `AWS::Config::ResourceCompliance` resource type.
 
     Parameters:
@@ -23,8 +23,8 @@ def get_recoder_config(account_id, region):
             "name": RECORDER_NAME,
             "roleARN": f"arn:aws:iam::{account_id}:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig",
             "recordingGroup": {
-                "allSupported": True,
-                "includeGlobalResourceTypes": True,
+                "allSupported": False,
+                "includeGlobalResourceTypes": False,
                 "resourceTypes": [],
                 "exclusionByResourceTypes": {
                     "resourceTypes": [
@@ -32,7 +32,7 @@ def get_recoder_config(account_id, region):
                     ]
                 },
                 "recordingStrategy": {
-                    "useOnly": "ALL_SUPPORTED_RESOURCE_TYPES"
+                    "useOnly": "EXCLUSION_BY_RESOURCE_TYPES"
                 }
             },
             "recordingMode": {
@@ -45,16 +45,20 @@ def get_recoder_config(account_id, region):
             "name": RECORDER_NAME,
             "roleARN": f"arn:aws:iam::{account_id}:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig",
             "recordingGroup": {
-                "allSupported": True,
+                "allSupported": False,
                 "includeGlobalResourceTypes": False,
                 "resourceTypes": [],
                 "exclusionByResourceTypes": {
                     "resourceTypes": [
-                        "AWS::Config::ResourceCompliance"
+                        "AWS::Config::ResourceCompliance",
+                        "AWS::IAM::Policy",
+                        "AWS::IAM::User",
+                        "AWS::IAM::Role",
+                        "AWS::IAM::Group"
                     ]
                 },
                 "recordingStrategy": {
-                    "useOnly": "ALL_SUPPORTED_RESOURCE_TYPES"
+                    "useOnly": "EXCLUSION_BY_RESOURCE_TYPES"
                 }
             },
             "recordingMode": {
